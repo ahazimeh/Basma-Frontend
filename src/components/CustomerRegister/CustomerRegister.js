@@ -100,7 +100,7 @@ class CustomerRegister extends Component {
                                         />
                                     </div>
                                 </div>
-                                <a href="#">Forgot Password?</a>
+                                {/* <a href="#">Forgot Password?</a> */}
                                 <input onClick={this.submitForm} type="submit" class="btn" value="Register" />
                             </div>
                         </div>
