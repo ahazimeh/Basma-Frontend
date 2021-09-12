@@ -302,6 +302,8 @@ class Customer extends Component {
 
             pageList.push(<div>{pageList1}</div>);
         }
+        return (<div>a</div>)
+
         return (
             // <div className="customer">
             //     <table class="content-table">
