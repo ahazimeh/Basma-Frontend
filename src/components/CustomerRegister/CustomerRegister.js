@@ -27,8 +27,9 @@ class CustomerRegister extends Component {
     };
     submitForm = async (e) => {
         e.preventDefault();
-        const url = site_url + "/api/login";
+        const url = site_url + "/api/register";
         const body = {
+            name: this.state.name,
             email: this.state.username,
             password: this.state.password,
         };

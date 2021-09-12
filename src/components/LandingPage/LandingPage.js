@@ -1,6 +1,7 @@
 import react, { Component } from "react";
 import "./LandingPage.scss";
 import { NavLink } from "react-router-dom";
+import { site_url } from "../../constants";
 class LandingPage extends Component {
     constructor(props) {
         super(props);
@@ -14,14 +15,35 @@ class LandingPage extends Component {
             token: "",
         };
     }
+    LogOut = async () => {
+        let token = window.localStorage.getItem("token");
+        const url = site_url + "/api/logout";
+
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+        window.localStorage.clear();
+        this.setState({ redirect: true });
+    }
     render() {
+        let token = window.localStorage.getItem("token");
         return (
             <div className="landing-page">
                 <header>
                     <h2><NavLink to="/">Home</NavLink></h2>
                     <nav>
-                        <li><NavLink to="/register">Register Customer</NavLink></li>
-                        <li><NavLink to="/login">Login</NavLink></li>
+                        {token ? <li><NavLink to="/customers">Customers</NavLink></li> : ''}
+                        {token ? <li><NavLink to="/chart">Bar Chart</NavLink></li> : ''}
+
+                        {!token ? <li><NavLink to="/register">Register Customer</NavLink></li> : ''}
+
+                        {!token ? <li><NavLink to="/login">Login</NavLink></li> : <li><NavLink onClick={() => this.LogOut()} to="#">Logout</NavLink></li>}
                     </nav>
                 </header>
                 <section class="hero">

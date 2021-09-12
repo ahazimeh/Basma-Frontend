@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { site_url } from "../../constants";
+import { Redirect } from 'react-router';
+import AdminNavBar from "../AdminNavBar/AdminNavBar";
 import "./Customer.scss";
 let page = 1,
     rows = 0;
@@ -48,9 +50,11 @@ class Customer extends Component {
                 //     });
                 //   } else 
                 if (JSON.parse(res).status != "Not authorized") {
-                    console.log(JSON.parse(res))
                     this.setState({ customers: JSON.parse(res).data });
                     this.setState({ data: JSON.parse(res) });
+                }
+                else {
+                    window.localStorage.clear();
                 }
 
             });
@@ -114,8 +118,12 @@ class Customer extends Component {
         )
             .then((res) => res.text())
             .then((res) => {
-                this.setState({ data: JSON.parse(res) })
-                this.setState({ customers: JSON.parse(res).data })
+                if (JSON.parse(res).status != "Not authorized") {
+                    this.setState({ data: JSON.parse(res) })
+                    this.setState({ customers: JSON.parse(res).data })
+                }
+                else
+                    window.localStorage.clear();
             }
             );
     }
@@ -162,8 +170,12 @@ class Customer extends Component {
         )
             .then((res) => res.text())
             .then((res) => {
-                this.setState({ customers: JSON.parse(res).data })
-                this.setState({ data: JSON.parse(res) })
+                if (JSON.parse(res).status != "Not authorized") {
+                    this.setState({ customers: JSON.parse(res).data })
+                    this.setState({ data: JSON.parse(res) })
+                }
+                else
+                    window.localStorage.clear();
             }
             );
     };
@@ -213,8 +225,12 @@ class Customer extends Component {
         )
             .then((res) => res.text())
             .then((res) => {
-                this.setState({ customers: JSON.parse(res).data })
-                this.setState({ data: JSON.parse(res) })
+                if (JSON.parse(res).status != "Not authorized") {
+                    this.setState({ customers: JSON.parse(res).data })
+                    this.setState({ data: JSON.parse(res) })
+                }
+                else
+                    window.localStorage.clear();
             }
             );
     };
@@ -266,6 +282,8 @@ class Customer extends Component {
             );
     }
     render() {
+        if (window.localStorage.getItem("token") == undefined)
+            return (<Redirect to="/" />)
         var x = [];
         // x.push(
         //     <div class="container">
@@ -329,140 +347,142 @@ class Customer extends Component {
             //         </tbody>
             //     </table>
             // </div>
-            <div className="App">
-                {/* <input
+            <>
+                <AdminNavBar />
+                <div className="App">
+                    {/* <input
                     aria-invalid="false"
                     placeholder="Search 42 records..."
                     type="text"
                     class="MuiInputBase-input MuiInput-input jss168"
                     value=""
                   /> */}
-                <div className="table">
-                    <div className="pn">
-                        <input
-                            id="last"
-                            onClick={() => {
-                                this.last();
-                            }}
-                            type="button"
-                            className={"previous " + has_prev}
-                            value="Previous"
-                            data={last_page}
-                        />
-                        {/* input here */}
-                        {/* <div id="userList">
+                    <div className="table">
+                        <div className="pn">
+                            <input
+                                id="last"
+                                onClick={() => {
+                                    this.last();
+                                }}
+                                type="button"
+                                className={"previous " + has_prev}
+                                value="Previous"
+                                data={last_page}
+                            />
+                            {/* input here */}
+                            {/* <div id="userList">
                         <div>profile</div>
                         <div>profile</div>
                         <div>profile</div>
                       </div> */}
-                        <div className="container">
-                            <div onClick={this.pageOptions} className="page">
-                                Page 1
-                            </div>
-                            {/* the size of this below is 3*number of pages + 10 */}
-                            <div className="pageOptions">
-                                {/* the size of this above is 3*number of pages + 10 */}
-                                {pageList}
-                            </div>
-                        </div>
-
-                        {/* input here */}
-                        <div className="container">
-                            <div onClick={this.rowsOptions} className="rows">
-                                Rows 20
-                            </div>
-                            {/* the size of this below is 3*number of pages + 10 */}
-                            <div className="rowsOptions">
-                                {/* the size of this above is 3*number of pages + 10 */}
-                                <div>
-                                    <div onClick={this.rows("20")}>Row 20</div>
-                                    <div onClick={this.rows("40")}>Row 40</div>
-                                    <div onClick={this.rows("60")}>Row 60</div>
+                            <div className="container">
+                                <div onClick={this.pageOptions} className="page">
+                                    Page 1
+                                </div>
+                                {/* the size of this below is 3*number of pages + 10 */}
+                                <div className="pageOptions">
+                                    {/* the size of this above is 3*number of pages + 10 */}
+                                    {pageList}
                                 </div>
                             </div>
-                        </div>
-                        {/* <div>asdsad</div> */}
-                        <input
-                            id="next"
-                            onClick={() => {
-                                this.next();
-                            }}
-                            type="button"
-                            className={"next " + has_next}
-                            value="Next"
-                            data={next_page}
-                        />
-                    </div>
-                    <div>
-                        <div className="row1">
-                            <div className="col0 col3">Id</div>
-                            <div className="col0 col3">Name</div>
-                            <div className="col0 col3">Email</div>
-                            <div className="col0 col3 hide">Office</div>
-                            <div className="actionTitle col0 col3">Action</div>
-                        </div>
-                    </div>
-                    <div className="row1">
-                        <div className="col0 col3 search">
-                            <input
-                                id="search1"
-                                aria-invalid="false"
-                                placeholder={"Search " + count + " records..."}
-                                type="text"
-                                className="MuiInputBase-input MuiInput-input jss168"
-                            />
-                        </div>
-                        <div className="col0 col3 search">
-                            <input
-                                id="search2"
-                                aria-invalid="false"
-                                placeholder={"Search " + count + " records..."}
-                                type="text"
-                                className="MuiInputBase-input MuiInput-input jss168"
-                            />
-                        </div>
-                        <div className="col0 col3 search">
-                            <input
-                                id="search3"
-                                aria-invalid="false"
-                                placeholder={"Search " + count + " records..."}
-                                type="text"
-                                className="MuiInputBase-input MuiInput-input jss168"
-                            />
-                        </div>
-                        <div className="col0 col3 search hide">
-                            <input
-                                aria-invalid="false"
-                                placeholder="Search 42 records..."
-                                type="text"
-                                className="MuiInputBase-input MuiInput-input jss168"
-                            />
-                        </div>
-                    </div>
-                    {this.state.customers.map((data, index) => {
-                        return (
-                            <div className={"rowData " + "row" + index % 2}>
-                                <div className="col0 col3">{data.id}</div>
-                                <div className="col0 col3">{data.name}</div>
-                                <div className="col0 col3">{data.email}</div>
-                                <div className="col0 col3">
-                                    <div className="action">
-                                        <div>
-                                            <FontAwesomeIcon className="blueHeart" icon={faHeart} />
-                                        </div>
-                                        <div>
-                                            <FontAwesomeIcon className="redTrash" icon={faTrash} />
-                                        </div>
+
+                            {/* input here */}
+                            <div className="container">
+                                <div onClick={this.rowsOptions} className="rows">
+                                    Rows 20
+                                </div>
+                                {/* the size of this below is 3*number of pages + 10 */}
+                                <div className="rowsOptions">
+                                    {/* the size of this above is 3*number of pages + 10 */}
+                                    <div>
+                                        <div onClick={this.rows("20")}>Row 20</div>
+                                        <div onClick={this.rows("40")}>Row 40</div>
+                                        <div onClick={this.rows("60")}>Row 60</div>
                                     </div>
                                 </div>
                             </div>
-                        )
+                            {/* <div>asdsad</div> */}
+                            <input
+                                id="next"
+                                onClick={() => {
+                                    this.next();
+                                }}
+                                type="button"
+                                className={"next " + has_next}
+                                value="Next"
+                                data={next_page}
+                            />
+                        </div>
+                        <div>
+                            <div className="row1">
+                                <div className="col0 col3">Id</div>
+                                <div className="col0 col3">Name</div>
+                                <div className="col0 col3">Email</div>
+                                <div className="col0 col3 hide">Office</div>
+                                <div className="actionTitle col0 col3">Action</div>
+                            </div>
+                        </div>
+                        <div className="row1">
+                            <div className="col0 col3 search">
+                                <input
+                                    id="search1"
+                                    aria-invalid="false"
+                                    placeholder={"Search " + count + " records..."}
+                                    type="text"
+                                    className="MuiInputBase-input MuiInput-input jss168"
+                                />
+                            </div>
+                            <div className="col0 col3 search">
+                                <input
+                                    id="search2"
+                                    aria-invalid="false"
+                                    placeholder={"Search " + count + " records..."}
+                                    type="text"
+                                    className="MuiInputBase-input MuiInput-input jss168"
+                                />
+                            </div>
+                            <div className="col0 col3 search">
+                                <input
+                                    id="search3"
+                                    aria-invalid="false"
+                                    placeholder={"Search " + count + " records..."}
+                                    type="text"
+                                    className="MuiInputBase-input MuiInput-input jss168"
+                                />
+                            </div>
+                            <div className="col0 col3 search hide">
+                                <input
+                                    aria-invalid="false"
+                                    placeholder="Search 42 records..."
+                                    type="text"
+                                    className="MuiInputBase-input MuiInput-input jss168"
+                                />
+                            </div>
+                        </div>
+                        {this.state.customers.map((data, index) => {
+                            return (
+                                <div className={"rowData " + "row" + index % 2}>
+                                    <div className="col0 col3">{data.id}</div>
+                                    <div className="col0 col3">{data.name}</div>
+                                    <div className="col0 col3">{data.email}</div>
+                                    <div className="col0 col3">
+                                        <div className="action">
+                                            <div>
+                                                <FontAwesomeIcon className="blueHeart" icon={faHeart} />
+                                            </div>
+                                            <div>
+                                                <FontAwesomeIcon className="redTrash" icon={faTrash} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
 
-                    })
-                    }
+                        })
+                        }
+                    </div>
                 </div>
-            </div>
-
+            </>
         );
     }
 }

@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import "./Chart.scss";
 import { Bar } from "react-chartjs-2";
-import NavBar from "../NavBar/NavBar";
+import AdminNavBar from "../AdminNavBar/AdminNavBar";
 import { site_url } from "../../constants";
+import { Redirect } from 'react-router';
 class CustomerRegister extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            values: []
+            values: [],
         };
     }
     componentDidMount() {
@@ -22,13 +23,21 @@ class CustomerRegister extends Component {
         )
             .then((res) => res.text())
             .then((res) => {
-                this.setState({ values: JSON.parse(res) });
+                console.log(res);
+                if (JSON.parse(res).status != "Not authorized") {
+                    this.setState({ values: JSON.parse(res) });
+                }
+                else {
+                    window.localStorage.clear();
+                }
             });
     }
     render() {
+        if (window.localStorage.getItem("token") == undefined)
+            return (<Redirect to="/" />)
         return (
             <>
-                <NavBar />
+                <AdminNavBar />
                 <div style={{ padding: "0px 200px 200px 200px" }}>
                     <Bar
                         data={{
