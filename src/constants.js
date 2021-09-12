@@ -1,1 +1,1 @@
-export const site_url = "http://localhost:8000";
+export const site_url = "https://basma-backend.herokuapp.com";
