@@ -11,7 +11,7 @@ html {
 	font-family: "Raleway", sans-serif;
 	color: #555;
 }
-.NavBar{
+.landing-page{
 ul,
 nav {
 	list-style: none;
@@ -45,7 +45,7 @@ section {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 50px 80px;
+	padding: 100px 80px;
 }
 
 section:not(.hero):nth-child(even) {
@@ -151,21 +151,21 @@ header nav li {
 
 /*Hero Styles*/
 
-// .hero {
-// 	position: relative;
-// 	justify-content: center;
-// 	text-align: center;
-// 	min-height: 100vh;
-// 	color: #fff;
-// }
+.hero {
+	position: relative;
+	justify-content: center;
+	text-align: center;
+	min-height: 100vh;
+	color: #fff;
+}
 
 .hero .background-image {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100px;
-	// background-image: url("https://images.unsplash.com/photo-1505535162959-9bbcb4ab22d6?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&s=2feeaf89ad55829f92c4bbc6ca8e83ce");
+	height: 100%;
+	background-image: url("https://images.unsplash.com/photo-1505535162959-9bbcb4ab22d6?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&s=2feeaf89ad55829f92c4bbc6ca8e83ce");
 	background-size: cover;
 	z-index: -1;
 	background-color: #80a3db;
@@ -203,7 +203,7 @@ header nav li {
 
 @media (max-width: 800px) {
 	.hero {
-		// min-height: 600px;
+		min-height: 600px;
 	}
 
 	.hero h1 {

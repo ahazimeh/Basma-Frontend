@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Chart.scss";
 import { Bar } from "react-chartjs-2";
 import NavBar from "../NavBar/NavBar";
+import { site_url } from "../../constants";
 class CustomerRegister extends Component {
     constructor(props) {
         super(props);
@@ -12,7 +13,7 @@ class CustomerRegister extends Component {
     componentDidMount() {
         let token = window.localStorage.getItem("token");
         fetch(
-            "http://localhost:8000/api/chart",
+            site_url + "/api/chart",
             {
                 headers: {
                     Authorization: "Bearer " + token,

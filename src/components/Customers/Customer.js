@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { site_url } from "../../constants";
 import "./Customer.scss";
 let page = 1,
     rows = 0;
@@ -21,7 +22,7 @@ class Customer extends Component {
         let token = window.localStorage.getItem("token");
         this.state.token = token;
         fetch(
-            "http://localhost:8000/api/customers/" +
+            site_url + "/api/customers/" +
             this.state.rows,
             {
                 headers: {
@@ -96,7 +97,7 @@ class Customer extends Component {
     }
     search() {
         fetch(
-            "http://localhost:8000/api/customers/" +
+            site_url + "/api/customers/" +
             this.state.rows +
             "?page=1&id=" +
             this.state.search1 +
@@ -142,7 +143,7 @@ class Customer extends Component {
         let addClass = document.getElementsByClassName("page");
         addClass[0].classList.add("pageborder");
         fetch(
-            "http://localhost:8000/api/customers/" +
+            site_url + "/api/customers/" +
             this.state.rows +
             "?page=" +
             value.k +
@@ -194,7 +195,7 @@ class Customer extends Component {
 
 
         fetch(
-            "http://localhost:8000/api/customers/" +
+            site_url + "/api/customers/" +
             this.state.rows +
             "?page=1" +
             "&id=" +

@@ -5,14 +5,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
     margin: 0;
     box-sizing: border-box;
   }
-  
   body{
       font-family: 'Poppins', sans-serif;
       overflow: hidden;
   }
   
   .wave{
-    position: fixed;
+    // position: fixed;
+    display: none;
     bottom: 0;
     left: 0;
     height: 100%;
@@ -207,7 +207,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
   
   @media screen and (max-width: 900px){
     .container{
-      grid-template-columns: 1fr;
+      // grid-template-columns: 1fr;
+      margin: auto;
+      display: flex;
+      justify-content: center;
     }
   
     .img{

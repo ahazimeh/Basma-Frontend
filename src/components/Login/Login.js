@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./Login.scss";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Redirect } from 'react-router';
+import LandingPage from "../LandingPage/LandingPage";
+import NavBar from "../NavBar/NavBar";
+import { site_url } from "../../constants";
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -43,7 +46,7 @@ class Login extends Component {
     };
     submitForm = async (e) => {
         e.preventDefault();
-        const url = "http://localhost:8000/api/login";
+        const url = site_url + "/api/login";
         const body = {
             email: this.state.username,
             password: this.state.password,
@@ -86,53 +89,56 @@ class Login extends Component {
     render() {
         if (this.state.redirect) {
             return (
-                <Redirect to="/" />
+                <Redirect to="/customers" />
             );
         }
         return (
-            <div className="login">
-                <img class="wave" src="./wave.png" />
-                <div class="container">
-                    <div class="img">
-                        <img src="./bg.svg" />
-                    </div>
-                    <div class="login-content">
-                        <div className="form">
-                            <img src="./avatar.svg" />
-                            <h2 class="title">Welcome</h2>
-                            <div class="input-div one">
-                                <div class="i">
-                                    <i class="fas fa-user"></i>
+            <>
+                <NavBar />
+                <div className="login">
+                    <img class="wave" src="./wave.png" />
+                    <div class="container">
+                        <div class="img">
+                            <img src="./bg.svg" />
+                        </div>
+                        <div class="login-content">
+                            <div className="form">
+                                <img src="./avatar.svg" />
+                                <h2 class="title">Welcome</h2>
+                                <div class="input-div one">
+                                    <div class="i">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="div">
+                                        {/* <h5>Username</h5> */}
+                                        <input placeholder="Email" type="text" class="input" name="username" onChange={this.handleInputChange} />
+                                    </div>
                                 </div>
-                                <div class="div">
-                                    {/* <h5>Username</h5> */}
-                                    <input placeholder="Username" type="text" class="input" name="username" onChange={this.handleInputChange} />
-                                </div>
-                            </div>
-                            <div class="input-div pass">
-                                <div class="i">
-                                    <i class="fas fa-lock"></i>
-                                </div>
-                                <div class="div">
-                                    {/* <h5>Password</h5> */}
-                                    <input type="password" placeholder="Password" class="input"
-                                        name="password"
-                                        onChange={this.handleInputChange}
-                                    />
-                                </div>
+                                <div class="input-div pass">
+                                    <div class="i">
+                                        <i class="fas fa-lock"></i>
+                                    </div>
+                                    <div class="div">
+                                        {/* <h5>Password</h5> */}
+                                        <input type="password" placeholder="Password" class="input"
+                                            name="password"
+                                            onChange={this.handleInputChange}
+                                        />
+                                    </div>
 
-                            </div>
-                            <ReCAPTCHA
-                                sitekey="6LfF8WAcAAAAAD-se_QJ_rcZTYFBr7SYRBKYlqb2"
-                                onChange={(e) => this.Recaptch(e)}
-                            />
+                                </div>
+                                <ReCAPTCHA
+                                    sitekey="6LfF8WAcAAAAAD-se_QJ_rcZTYFBr7SYRBKYlqb2"
+                                    onChange={(e) => this.Recaptch(e)}
+                                />
 
-                            <a href="#">Forgot Password?</a>
-                            <input onClick={this.submitForm} type="submit" class="btn" value="Login" />
+                                {/* <a href="#">Forgot Password?</a> */}
+                                <input onClick={this.submitForm} type="submit" class="btn" value="Login" />
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div >
+                </div >
+            </>
         );
     }
 }
