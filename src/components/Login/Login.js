@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Login.scss";
+import ReCAPTCHA from "react-google-recaptcha";
 import { Redirect } from 'react-router';
 class Login extends Component {
     constructor(props) {
@@ -7,7 +8,8 @@ class Login extends Component {
         this.state = {
             password: "",
             username: "",
-            redirect: false
+            redirect: false,
+            recaptcha: "",
         };
     }
     addcl = () => {
@@ -45,6 +47,7 @@ class Login extends Component {
         const body = {
             email: this.state.username,
             password: this.state.password,
+            recaptcha: this.state.recaptcha
         };
 
         const response = await fetch(url, {
@@ -76,6 +79,9 @@ class Login extends Component {
         // } else {
         //   this.setState({ error: res.error });
         // }
+    }
+    Recaptch = (e) => {
+        this.setState({ recaptcha: e });
     }
     render() {
         if (this.state.redirect) {
@@ -114,7 +120,13 @@ class Login extends Component {
                                         onChange={this.handleInputChange}
                                     />
                                 </div>
+
                             </div>
+                            <ReCAPTCHA
+                                sitekey="6LfF8WAcAAAAAD-se_QJ_rcZTYFBr7SYRBKYlqb2"
+                                onChange={(e) => this.Recaptch(e)}
+                            />
+
                             <a href="#">Forgot Password?</a>
                             <input onClick={this.submitForm} type="submit" class="btn" value="Login" />
                         </div>
