@@ -3,6 +3,7 @@ import "./CustomerRegister.scss";
 import { Redirect } from 'react-router';
 import NavBar from "../NavBar/NavBar";
 import { site_url } from "../../constants";
+import ReCAPTCHA from "react-google-recaptcha";
 class CustomerRegister extends Component {
     constructor(props) {
         super(props);
@@ -10,8 +11,12 @@ class CustomerRegister extends Component {
             name: "",
             password: "",
             username: "",
-            redirect: false
+            redirect: false,
+            recaptcha: "",
         };
+    }
+    Recaptch = (e) => {
+        this.setState({ recaptcha: e });
     }
     handleInputChange = (e) => {
         // console.log("a");
@@ -32,6 +37,7 @@ class CustomerRegister extends Component {
             name: this.state.name,
             email: this.state.username,
             password: this.state.password,
+            recaptcha: this.state.recaptcha
         };
 
         const response = await fetch(url, {
@@ -46,6 +52,8 @@ class CustomerRegister extends Component {
         });
 
         const res = await response.json();
+        if (res == true)
+            this.setState({ redirect: true });
         if (res.access_token) {
             window.localStorage.setItem("token", res.access_token);
             this.setState({ redirect: true });
@@ -100,6 +108,10 @@ class CustomerRegister extends Component {
                                         />
                                     </div>
                                 </div>
+                                <ReCAPTCHA
+                                    sitekey="6LfF8WAcAAAAAD-se_QJ_rcZTYFBr7SYRBKYlqb2"
+                                    onChange={(e) => this.Recaptch(e)}
+                                />
                                 {/* <a href="#">Forgot Password?</a> */}
                                 <input onClick={this.submitForm} type="submit" class="btn" value="Register" />
                             </div>
