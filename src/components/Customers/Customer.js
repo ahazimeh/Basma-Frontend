@@ -46,8 +46,12 @@ class Customer extends Component {
                 //       progress: undefined,
                 //     });
                 //   } else 
-                this.setState({ customers: JSON.parse(res).data });
-                this.setState({ data: JSON.parse(res) });
+                if (JSON.parse(res).status != "Not authorized") {
+                    console.log(JSON.parse(res))
+                    this.setState({ customers: JSON.parse(res).data });
+                    this.setState({ data: JSON.parse(res) });
+                }
+
             });
 
 
