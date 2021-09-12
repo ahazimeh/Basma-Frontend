@@ -87,11 +87,16 @@ class Login extends Component {
         this.setState({ recaptcha: e });
     }
     render() {
+
         if (this.state.redirect) {
             return (
                 <Redirect to="/customers" />
             );
         }
+        if (window.localStorage.getItem("token") != undefined)
+            return (
+                <Redirect to="/" />
+            );
         return (
             <>
                 <NavBar />

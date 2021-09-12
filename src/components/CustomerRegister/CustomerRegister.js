@@ -52,7 +52,7 @@ class CustomerRegister extends Component {
         }
     }
     render() {
-        if (this.state.redirect) {
+        if (this.state.redirect || window.localStorage.getItem("token") != undefined) {
             return (
                 <Redirect to="/" />
             );
