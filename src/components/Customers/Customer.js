@@ -418,7 +418,7 @@ class Customer extends Component {
                                 <div className="col0 col3">Name</div>
                                 <div className="col0 col3">Email</div>
                                 <div className="col0 col3 hide">Office</div>
-                                <div className="actionTitle col0 col3">Action</div>
+                                {/* <div className="actionTitle col0 col3">Action</div> */}
                             </div>
                         </div>
                         <div className="row1">
@@ -465,14 +465,14 @@ class Customer extends Component {
                                     <div className="col0 col3">{data.name}</div>
                                     <div className="col0 col3">{data.email}</div>
                                     <div className="col0 col3">
-                                        <div className="action">
+                                        {/* <div className="action">
                                             <div>
                                                 <FontAwesomeIcon className="blueHeart" icon={faHeart} />
                                             </div>
                                             <div>
                                                 <FontAwesomeIcon className="redTrash" icon={faTrash} />
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             )
