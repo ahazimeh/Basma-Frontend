@@ -304,10 +304,10 @@ class Customer extends Component {
         if (this.state.data != undefined) {
             count = this.state.data.total;
             var last_page = this.state.data.prev_page_url;
-            if (last_page.includes("basma"))
+            if (last_page && last_page.includes("basma"))
                 last_page = last_page.replace("http", "https");
             var next_page = this.state.data.next_page_url;
-            if (next_page.includes("basma"))
+            if (next_page && next_page.includes("basma"))
                 next_page = next_page.replace("http", "https");
             var nbPages = this.state.data.last_page;
             var sizePage = 30 * nbPages + 10;
