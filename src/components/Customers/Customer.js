@@ -194,7 +194,6 @@ class Customer extends Component {
         }
     }
     rows = (value) => () => {
-        alert(value)
         this.state.rows = value;
         let a = document.getElementsByClassName("rowsOptions");
         a[0].style.display = "none";
